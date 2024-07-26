@@ -2,6 +2,7 @@ from datasets import load_dataset, DatasetDict
 from transformers import AutoTokenizer
 from utils import under_sampling
 
+
 def load_and_tokenize_dataset(tokenizer_name='klue/bert-base'):
     dataset = load_dataset("klue", "ynat")
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
