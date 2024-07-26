@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from collections import Counter
 
+
 label_map = {
     'LABEL_0': 'IT',
     'LABEL_1': 'Economy',
@@ -16,6 +17,7 @@ label_map = {
     'LABEL_5': 'Sports',
     'LABEL_6': 'Politics'
 }
+
 
 def seed_everything(seed_value=42):
     np.random.seed(seed_value)
@@ -27,12 +29,14 @@ def seed_everything(seed_value=42):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
+    
 def compute_metrics(p):
     predictions, labels = p
     predictions = np.argmax(predictions, axis=1)
     precision, recall, f1, _ = precision_recall_fscore_support(labels, predictions, average='weighted')
     acc = accuracy_score(labels, predictions)
     return {'accuracy': acc, 'f1': f1, 'precision': precision, 'recall': recall}
+
 
 def plot_confusion_matrix(predictions, output='confusion_matrix.jpg'):
     print(predictions.metrics)
@@ -46,6 +50,7 @@ def plot_confusion_matrix(predictions, output='confusion_matrix.jpg'):
     plt.title('Confusion Matrix with Label Names')
     plt.savefig(output)
     plt.close()
+
 
 def under_sampling(dataset):
     labels = dataset['train']['label']
