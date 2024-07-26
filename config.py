@@ -1,8 +1,9 @@
 from transformers import TrainingArguments
 
+
 def get_training_arguments():
     return TrainingArguments(
-        output_dir='results',
+        output_dir='model',
         num_train_epochs=2,
         per_device_train_batch_size=32,
         per_device_eval_batch_size=8,
@@ -11,6 +12,8 @@ def get_training_arguments():
         weight_decay=0.01,
         logging_dir='logs',
         evaluation_strategy='epoch',
+        save_strategy='epoch',
+        save_total_limit=1,
         logging_steps=10,
         report_to="tensorboard",
     )
