@@ -1,5 +1,3 @@
-# BERT-ynat-Classification
-
 ## Features
 - Load and preprocess [YNAT](https://huggingface.co/datasets/klue/klue/viewer/ynat) dataset
 - Text Classification using BERT model
