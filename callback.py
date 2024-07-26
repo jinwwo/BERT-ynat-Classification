@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import sys
 
 class LossCallback(TrainerCallback):
+    
     def __init__(self, logging_interval=10):
+        super().__init__()
         self.train_losses = []
         self.eval_losses = []
         self.count = 0
@@ -20,8 +22,6 @@ class LossCallback(TrainerCallback):
             self.loss_tracker = []
             
     def plot_loss(self, output='loss_plot.jpg'):
-        print(f"self.train_losses: {self.train_losses}")
-        print(f"self.eval_losses: {self.eval_losses}")
         plt.figure(figsize=(10, 5))
         epochs = range(1, len(self.eval_losses) + 1)
         plt.plot(
@@ -40,7 +40,4 @@ class LossCallback(TrainerCallback):
         plt.title('Training and Validation Loss Over Epochs')
         plt.legend()
         plt.savefig(output)
-        plt.close()
-        
-    
-            
+        plt.close()         
