@@ -5,12 +5,13 @@ from utils import compute_metrics, seed_everything, plot_confusion_matrix
 from transformers import AutoModelForSequenceClassification
 from callback import LossCallback
 
-if __name__ == "__main__":
+
+def train(output_dir='results'):
     seed_everything()
-    tokenized_datasets, tokenizer = load_and_tokenize_dataset()
+    datasets, tokenizer = load_and_tokenize_dataset()
     
     model = AutoModelForSequenceClassification.from_pretrained(
-        'klue/bert-base', num_labels=dataset['train'].features['label'].num_classes
+        'klue/bert-base', num_labels=datasets['train'].features['label'].num_classes
     )
     
     data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
@@ -20,8 +21,8 @@ if __name__ == "__main__":
     trainer = Trainer(
         model=model,
         args=training_args,
-        train_dataset=tokenized_datasets["train"],
-        eval_dataset=tokenized_datasets["validation"],
+        train_dataset=datasets["train"],
+        eval_dataset=datasets["validation"],
         data_collator=data_collator,
         compute_metrics=compute_metrics,
         callbacks=[loss_callback]
@@ -30,9 +31,10 @@ if __name__ == "__main__":
     trainer.train()
     loss_callback.plot_loss()
     
-    model.save_pretrained('bert-ynat-cls')
-    tokenizer.save_pretrained('bert-ynat-cls')
-    
     results = trainer.evaluate()
-    predictions = trainer.predict(tokenized_datasets["test"])
+    predictions = trainer.predict(datasets["test"])
     plot_confusion_matrix(predictions)
+    
+    
+if __name__ == "__main__":
+    train()
