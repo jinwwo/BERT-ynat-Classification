@@ -12,7 +12,7 @@ This is a project that performs classification by fine-tuning BERT (Bidirectiona
 
 ## Preprocessing
 - Extract "title" and "label" columns (Removed "guid", "url", "date")
-- Due to class imbalance, undersampling was performed based on the class with the fewest instances.
+- Due to class imbalance, undersampling was applied based on the class with the fewest instances.
 
 ## Train model
 ```bash
